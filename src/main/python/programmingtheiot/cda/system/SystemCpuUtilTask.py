@@ -13,14 +13,19 @@ import psutil
 from programmingtheiot.cda.system.BaseSystemUtilTask import BaseSystemUtilTask
 
 class SystemCpuUtilTask(BaseSystemUtilTask):
-	"""
-	Shell representation of class for student implementation.
-	
-	"""
+    """
+    Implementation of CPU utilization monitoring task.
+    """
 
-	def __init__(self):
-		pass
-	
-	def getTelemetryValue(self) -> float:
-		pass
+    def __init__(self):
+        super(SystemCpuUtilTask, self).__init__()
+
+    def getTelemetryValue(self) -> float:
+        try:
+            cpu_usage = psutil.cpu_percent(interval=1)  # Mide la CPU en un intervalo de 1 segundo
+            return cpu_usage
+        except Exception as e:
+            logging.error("Error getting CPU utilization: %s", str(e))
+            return None
+
 		

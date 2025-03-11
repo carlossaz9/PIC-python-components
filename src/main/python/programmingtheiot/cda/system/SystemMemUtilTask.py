@@ -13,14 +13,18 @@ import psutil
 from programmingtheiot.cda.system.BaseSystemUtilTask import BaseSystemUtilTask
 
 class SystemMemUtilTask(BaseSystemUtilTask):
-	"""
-	Shell representation of class for student implementation.
-	
-	"""
+    """
+    Implementation of memory utilization monitoring task.
+    """
 
-	def __init__(self):
-		pass
-	
-	def getTelemetryValue(self) -> float:
-		pass
+    def __init__(self):
+        super(SystemMemUtilTask, self).__init__()
+
+    def getTelemetryValue(self) -> float:
+        try:
+            mem = psutil.virtual_memory()
+            return mem.percent  # Retorna el porcentaje de uso de memoria
+        except Exception as e:
+            logging.error("Error getting memory utilization: %s", str(e))
+            return None
 		
