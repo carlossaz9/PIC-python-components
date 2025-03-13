@@ -10,6 +10,8 @@
 import logging
 import psutil
 
+import programmingtheiot.common.ConfigConst as ConfigConst
+
 from programmingtheiot.cda.system.BaseSystemUtilTask import BaseSystemUtilTask
 
 class SystemMemUtilTask(BaseSystemUtilTask):
@@ -18,13 +20,9 @@ class SystemMemUtilTask(BaseSystemUtilTask):
     """
 
     def __init__(self):
-        super(SystemMemUtilTask, self).__init__()
+        super(SystemMemUtilTask, self).__init__(name = ConfigConst.MEM_UTIL_NAME, typeID = ConfigConst.MEM_UTIL_TYPE)
+
 
     def getTelemetryValue(self) -> float:
-        try:
-            mem = psutil.virtual_memory()
-            return mem.percent  # Retorna el porcentaje de uso de memoria
-        except Exception as e:
-            logging.error("Error getting memory utilization: %s", str(e))
-            return None
+        return psutil.virtual_memory().percent
 		

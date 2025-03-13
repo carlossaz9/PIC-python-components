@@ -10,6 +10,8 @@
 import logging
 import psutil
 
+import programmingtheiot.common.ConfigConst as ConfigConst
+
 from programmingtheiot.cda.system.BaseSystemUtilTask import BaseSystemUtilTask
 
 class SystemCpuUtilTask(BaseSystemUtilTask):
@@ -18,14 +20,9 @@ class SystemCpuUtilTask(BaseSystemUtilTask):
     """
 
     def __init__(self):
-        super(SystemCpuUtilTask, self).__init__()
+        super(SystemCpuUtilTask, self).__init__(name = ConfigConst.CPU_UTIL_NAME, typeID = ConfigConst.CPU_UTIL_TYPE)
 
     def getTelemetryValue(self) -> float:
-        try:
-            cpu_usage = psutil.cpu_percent(interval=1)  # Mide la CPU en un intervalo de 1 segundo
-            return cpu_usage
-        except Exception as e:
-            logging.error("Error getting CPU utilization: %s", str(e))
-            return None
+        return psutil.cpu_percent()
 
 		
